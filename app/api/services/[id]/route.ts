@@ -5,10 +5,11 @@ import dbConnect from '@/lib/mongodb';
 import Service from '@/models/Service';
 
 // GET single service
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params;
     await dbConnect();
-    const service = await Service.findById(params.id);
+    const service = await Service.findById(id);
     
     if (!service) {
       return NextResponse.json({ success: false, error: 'Service not found' }, { status: 404 });
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 }
 
 // PUT update service
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -29,9 +30,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { id } = await params;
     await dbConnect();
     const body = await request.json();
-    const service = await Service.findByIdAndUpdate(params.id, body, {
+    const service = await Service.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
@@ -47,7 +49,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 }
 
 // DELETE service
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -55,8 +57,9 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { id } = await params;
     await dbConnect();
-    const service = await Service.findByIdAndDelete(params.id);
+    const service = await Service.findByIdAndDelete(id);
     
     if (!service) {
       return NextResponse.json({ success: false, error: 'Service not found' }, { status: 404 });

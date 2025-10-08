@@ -8,6 +8,7 @@ export interface IProject {
   liveUrl?: string;
   githubUrl?: string;
   technologies: string[];
+  category: 'Web3' | 'Web2' | 'Mobile' | 'Other';
   featured: boolean;
   order: number;
   createdAt?: Date;
@@ -38,6 +39,12 @@ const ProjectSchema = new mongoose.Schema<IProject>(
     technologies: {
       type: [String],
       default: [],
+    },
+    category: {
+      type: String,
+      enum: ['Web3', 'Web2', 'Mobile', 'Other'],
+      default: 'Web2',
+      required: [true, 'Please specify a project category'],
     },
     featured: {
       type: Boolean,

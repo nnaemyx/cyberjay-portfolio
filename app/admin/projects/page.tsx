@@ -12,6 +12,7 @@ interface Project {
   liveUrl?: string;
   githubUrl?: string;
   technologies: string[];
+  category: 'Web3' | 'Web2' | 'Mobile' | 'Other';
   featured: boolean;
   order: number;
 }
@@ -30,6 +31,7 @@ export default function ProjectsManagement() {
     liveUrl: '',
     githubUrl: '',
     technologies: '',
+    category: 'Web2' as 'Web3' | 'Web2' | 'Mobile' | 'Other',
     featured: false,
     order: 0,
   });
@@ -92,6 +94,7 @@ export default function ProjectsManagement() {
       liveUrl: project.liveUrl || '',
       githubUrl: project.githubUrl || '',
       technologies: project.technologies.join(', '),
+      category: project.category || 'Web2',
       featured: project.featured,
       order: project.order,
     });
@@ -119,6 +122,7 @@ export default function ProjectsManagement() {
       liveUrl: '',
       githubUrl: '',
       technologies: '',
+      category: 'Web2',
       featured: false,
       order: 0,
     });
@@ -204,15 +208,30 @@ export default function ProjectsManagement() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Technologies (comma-separated)</label>
-                  <input
-                    type="text"
-                    value={formData.technologies}
-                    onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
-                    placeholder="React, Next.js, TypeScript"
+                  <label className="block text-sm font-medium text-foreground mb-2">Category *</label>
+                  <select
+                    required
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value as 'Web3' | 'Web2' | 'Mobile' | 'Other' })}
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:border-primary focus:outline-none transition-colors text-foreground"
-                  />
+                  >
+                    <option value="Web3">Web3</option>
+                    <option value="Web2">Web2</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Other">Other</option>
+                  </select>
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">Technologies (comma-separated)</label>
+                <input
+                  type="text"
+                  value={formData.technologies}
+                  onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
+                  placeholder="Solidity, Hardhat, Ethers.js, React, Next.js"
+                  className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:border-primary focus:outline-none transition-colors text-foreground"
+                />
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">

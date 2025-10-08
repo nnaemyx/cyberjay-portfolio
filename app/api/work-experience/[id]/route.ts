@@ -5,10 +5,11 @@ import dbConnect from '@/lib/mongodb';
 import WorkExperience from '@/models/WorkExperience';
 
 // GET single work experience
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params;
     await dbConnect();
-    const experience = await WorkExperience.findById(params.id);
+    const experience = await WorkExperience.findById(id);
     
     if (!experience) {
       return NextResponse.json({ success: false, error: 'Work experience not found' }, { status: 404 });
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 }
 
 // PUT update work experience
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -29,9 +30,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { id } = await params;
     await dbConnect();
     const body = await request.json();
-    const experience = await WorkExperience.findByIdAndUpdate(params.id, body, {
+    const experience = await WorkExperience.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
@@ -47,7 +49,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 }
 
 // DELETE work experience
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -55,8 +57,9 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { id } = await params;
     await dbConnect();
-    const experience = await WorkExperience.findByIdAndDelete(params.id);
+    const experience = await WorkExperience.findByIdAndDelete(id);
     
     if (!experience) {
       return NextResponse.json({ success: false, error: 'Work experience not found' }, { status: 404 });

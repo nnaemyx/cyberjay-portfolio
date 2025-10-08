@@ -1,13 +1,27 @@
+import { config } from 'dotenv';
+import { resolve } from 'path';
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio';
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@example.com';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+// Load environment variables from .env.local
+config({ path: resolve(process.cwd(), '.env.local') });
+
+const MONGODB_URI = process.env.MONGODB_URI;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 async function createAdmin() {
+  if (!MONGODB_URI || !ADMIN_EMAIL || !ADMIN_PASSWORD) {
+    console.error('Missing required environment variables: MONGODB_URI, ADMIN_EMAIL, ADMIN_PASSWORD');
+    process.exit(1);
+  }
+
+  const mongoUri = MONGODB_URI as string;
+  const adminEmail = ADMIN_EMAIL as string;
+  const adminPassword = ADMIN_PASSWORD as string;
+
   try {
-    await mongoose.connect(MONGODB_URI);
+    await mongoose.connect(mongoUri);
     console.log('Connected to MongoDB');
 
     const UserSchema = new mongoose.Schema({
@@ -20,7 +34,7 @@ async function createAdmin() {
     const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
     // Check if admin already exists
-    const existingAdmin = await User.findOne({ email: ADMIN_EMAIL });
+    const existingAdmin = await User.findOne({ email: adminEmail });
     if (existingAdmin) {
       console.log('Admin user already exists');
       await mongoose.disconnect();
@@ -28,12 +42,12 @@ async function createAdmin() {
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD, 10);
+    const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
     // Create admin user
     const admin = await User.create({
       name: 'Admin',
-      email: ADMIN_EMAIL,
+      email: adminEmail,
       password: hashedPassword,
       role: 'admin',
     });
