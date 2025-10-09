@@ -255,7 +255,7 @@ export default function Home() {
 
           <div className="flex items-center gap-4">
           <a 
-            href="https://calendly.com/your-username" 
+            href="https://calendly.com/edehjohnpaul" 
             target="_blank" 
             rel="noopener noreferrer"
             className="bg-primary text-primary-foreground px-6 py-2 rounded-lg text-[14px] font-medium hover:bg-primary/90 transition-colors inline-block"
@@ -763,7 +763,7 @@ export default function Home() {
             </div>
           </div>
           <div className="text-center text-muted-foreground text-sm">
-            <p>© 2024 Johnpaul. All rights reserved.</p>
+            <p>© 2025 Johnpaul. All rights reserved.</p>
           </div>
         </div>
       </footer>
