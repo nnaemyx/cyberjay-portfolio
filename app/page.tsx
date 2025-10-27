@@ -21,7 +21,7 @@ interface Project {
   liveUrl?: string;
   githubUrl?: string;
   technologies: string[];
-  category: "Web3" | "Web2" | "Mobile" | "Other";
+  category: "Web2" | "Mobile" | "Other";
   featured: boolean;
   order: number;
 }
@@ -53,7 +53,7 @@ export default function Home() {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [projectFilter, setProjectFilter] = useState<
-    "All" | "Web3" | "Web2" | "Mobile" | "Other"
+    "All" | "Web2" | "Mobile" | "Other"
   >("All");
   const [contactForm, setContactForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [contactStatus, setContactStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -98,12 +98,12 @@ export default function Home() {
 
   const getCategoryBadgeColor = (category: string) => {
     switch (category) {
-      case "Web3":
-        return "bg-purple-500/10 text-purple-400 border-purple-500/30";
+      // case "Web3":
+      //   return "bg-purple-500/10 text-purple-400 border-purple-500/30";
       case "Web2":
         return "bg-blue-500/10 text-blue-400 border-blue-500/30";
-      case "Mobile":
-        return "bg-green-500/10 text-green-400 border-green-500/30";
+      // case "Mobile":
+      //   return "bg-green-500/10 text-green-400 border-green-500/30";
       default:
         return "bg-gray-500/10 text-gray-400 border-gray-500/30";
     }
@@ -162,7 +162,7 @@ export default function Home() {
               <span>
               <div className="w-2 h-2 rounded-full bg-[#00B66F] animate-pulse" />
               </span>
-              Web3 & Full-stack Developer
+              Full-stack Developer
             </span>
           </div>
 
@@ -346,14 +346,14 @@ export default function Home() {
               <h1 className="text-4xl lg:text-6xl font-medium text-[#ACACAC] leading-tight animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
                 Hey, I'm <span className="text-[#F9F9F9]">Johnpaul</span>.<br />
                 <span className="text-[#ACACAC]">
-                  Web3 & Full-stack Developer.
+                  Full-stack Developer.
                 </span>
               </h1>
               <p className="text-muted-foreground text-lg lg:text-xl leading-relaxed max-w-2xl animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
                 Hello there, I'm Johnpaul, a full-stack developer specializing
-                in Web3 and blockchain technologies. I build decentralized
-                applications, smart contracts, and innovative digital
-                experiences for the future of the web.
+                in building modern web applications and digital experiences.
+                I create scalable, efficient, and user-friendly solutions
+                using cutting-edge technologies.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
                 <a 
@@ -392,29 +392,28 @@ export default function Home() {
             <ScrollReveal delay={100}>
               <div className="space-y-6 text-muted-foreground text-lg leading-relaxed max-w-4xl mx-auto">
                 <p>
-                  I am a software developer with more than 3 years of experience
-                  in full-stack and Web3 development. I specialize in building
-                  decentralized applications (dApps), smart contracts, and
-                  modern web solutions using cutting-edge technologies.
+                  I am a software developer with 4 years of experience
+                  in full-stack development. I specialize in building
+                  modern web applications, APIs, and digital solutions
+                  using cutting-edge technologies.
                 </p>
                 <p>
-                  My Web3 expertise includes{" "}
+                  My expertise includes{" "}
                   <span className="text-primary font-medium">
-                    Solidity, Ethereum, Hardhat, Web3.js, Ethers.js, IPFS, and
-                    blockchain integration
+                    React, Next.js, TypeScript, Node.js, MongoDB,
+                    Express.js, and Tailwind CSS
                   </span>
-                  . On the full-stack side, I work with{" "}
+                  . I also work with{" "}
                   <span className="text-primary font-medium">
-                    React, Next.js, TypeScript, Node.js, MongoDB, and Tailwind
-                    CSS
+                    RESTful APIs, TanStack Query, Redux, Zustand, and modern state
+                    management solutions
                   </span>
                   .
                 </p>
                 <p>
                   With a proven track record of creating efficient and scalable
-                  applications, I bridge the gap between Web2 and Web3,
-                  delivering user-friendly, high-performing solutions that shape
-                  the future of the decentralized internet.
+                  applications, I deliver user-friendly, high-performing solutions
+                  that meet modern web development standards and best practices.
                 </p>
               </div>
             </ScrollReveal>
@@ -527,7 +526,7 @@ export default function Home() {
           {/* Category Filter */}
           <ScrollReveal delay={100}>
             <div className="flex flex-wrap justify-center gap-3 mb-12">
-              {(["All", "Web3", "Web2", "Mobile", "Other"] as const).map(
+              {(["All", "Web2"] as const).map(
                 (category) => (
                   <button
                     key={category}
@@ -549,6 +548,27 @@ export default function Home() {
                   </button>
                 )
               )}
+              {/* Commented out Web3, Mobile, and Other filters */}
+              {/* {(["Web3", "Mobile", "Other"] as const).map(
+                (category) => (
+                  <button
+                    key={category}
+                    onClick={() => setProjectFilter(category)}
+                    className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
+                      projectFilter === category
+                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                        : "bg-card border border-border text-muted-foreground hover:border-primary hover:text-foreground"
+                    }`}
+                  >
+                    {category}
+                    <span className="ml-2 text-xs opacity-70">
+                      (
+                      {projects.filter((p) => p.category === category).length}
+                      )
+                    </span>
+                  </button>
+                )
+              )} */}
             </div>
           </ScrollReveal>
 
