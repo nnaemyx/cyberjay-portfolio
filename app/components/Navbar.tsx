@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
-
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
@@ -56,16 +54,10 @@ export default function Navbar() {
         {/* Logo */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-2.5 cursor-pointer"
+          className="flex items-center cursor-pointer"
         >
-          <Image
-            src="/images/Frame 2087328881.svg"
-            alt="Johnpaul"
-            width={34}
-            height={34}
-          />
-          <span className="text-primary font-bold text-lg tracking-tight">
-            Johnpaul
+          <span className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-bold text-xl tracking-tight">
+            JP
           </span>
         </button>
 

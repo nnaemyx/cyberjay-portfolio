@@ -1,4 +1,3 @@
-import Image from "next/image";
 
 const dots = [
   { top: "12%", left: "5%", size: 3 },
@@ -202,42 +201,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* ── Profile image column ── */}
-          <div className="lg:flex-none flex justify-center">
-            <div className="relative">
-              {/* Blue glow behind the image */}
-              <div
-                className="absolute inset-0 rounded-2xl"
-                style={{
-                  background: "rgba(59,130,246,0.18)",
-                  filter: "blur(40px)",
-                  transform: "scale(1.15)",
-                }}
-              />
-              <div
-                className="relative rounded-2xl overflow-hidden border border-primary/20"
-                style={{ background: "#0d1526" }}
-              >
-                <Image
-                  src="/images/Frame 2087328884.svg"
-                  alt="Johnpaul — Full-stack Developer"
-                  width={360}
-                  height={360}
-                  priority
-                  className="object-cover"
-                />
-              </div>
-              {/* Decorative corner accent */}
-              <div
-                className="absolute -bottom-3 -right-3 w-16 h-16 rounded-full border border-primary/30"
-                style={{ background: "rgba(59,130,246,0.06)" }}
-              />
-              <div
-                className="absolute -top-3 -left-3 w-10 h-10 rounded-full border border-primary/20"
-                style={{ background: "rgba(59,130,246,0.04)" }}
-              />
-            </div>
-          </div>
+
         </div>
       </div>
 
